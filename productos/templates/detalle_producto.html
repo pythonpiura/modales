@@ -1,0 +1,23 @@
+<div class="panel panel-default">
+	<div class="panel-body">
+		<div class="row">
+			<div class="col-lg-7">
+				<h3>{{ object.descripcion }}</h3>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-4">
+				<label>MARCA:</label>
+				<p>{{ object.marca }}</p>
+				<label>PRECIO:</label>
+				<p>{{ object.precio }}</p>
+				<label>ESTADO:</label>
+				{% if object.estado %}
+					<p>ACTIVO</p>
+				{% else %}
+					<p>INACTIVO</p>
+				{% endif %}
+			</div>
+		</div>
+	</div>
+</div>

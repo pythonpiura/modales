@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+{% block cuerpo %}
+<h3>Productos</h3>
+<div class="row">
+	<div class="col-lg-10">
+		<a onclick="return abrir_modal('{% url 'productos:crear_producto' %}','Productos / Nuevo')" class="btn btn-primary">
+			Crear
+		</a>
+	</div>
+</div>
+<hr/>
+<div class="row">
+	<div class="col-lg-12">
+		<table id="tabla" class="display" cellspacing="0" width="100%">
+			<thead>
+				<tr>
+					<th class="text-center">DESCRIPCION</th>
+					<th class="text-center">MARCA</th>
+					<th class="text-center">PRECIO</th>
+					<th class="text-center">ESTADO</th>
+					<th class="text-center">ACCIONES</th>
+				</tr>
+			</thead>
+			<tbody>
+			{% for producto in productos %}
+                <tr>
+                    <td>{{ producto.descripcion }}</td>
+                    <td>{{ producto.marca }}</td>
+                    <td>{{ producto.precio }}</td>
+                    {% if producto.estado %}
+                    <td>ACTIVO</td>
+                    {% else %}
+                    <td>INACTIVO</td>
+                    {% endif %}
+                    <td class="text-center">
+                        <a onclick="return abrir_modal('{% url 'productos:detalle_producto' producto.pk %}','Productos / {{ producto.descripcion }}')" class="btn">
+                            <span class="glyphicon glyphicon-eye-open"></span>
+                        </a>
+                        <a onclick="return abrir_modal('{% url 'productos:modificar_producto' producto.pk %}','Productos / {{ producto.descripcion }}')" class="btn">
+                            <span class="glyphicon glyphicon-edit"></span>
+                        </a>
+                    </td>
+				</tr>
+			{% endfor %}
+			</tbody>
+		</table>
+	</div>
+</div>
+<div id="popup"></div>
+<script>
+var modal;
+function abrir_modal(url, titulo)
+{
+    modal = $('#popup').dialog(
+    {
+        title: titulo,
+        modal: true,
+        width: 500,
+        resizable: false
+    }).dialog('open').load(url)
+}
+
+function cerrar_modal()
+{
+    modal.dialog("close");
+}
+
+$(document).ready(function()
+{
+    var table = $('#tabla').dataTable( {
+        "language": {
+        	url: "/static/localizacion/es_ES.json"
+        }
+    } );
+});
+</script>
+{% endblock cuerpo %}

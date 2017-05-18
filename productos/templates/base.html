@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Modales</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/jquery-ui.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/jquery.dataTables.min.css'  %}"/>
+    <script type="text/javascript" src="{% static 'js/jquery.js' %}" charset="UTF-8"></script>
+    <script type="text/javascript" src="{% static 'js/bootstrap.min.js' %}" charset="UTF-8"></script>
+    <script type="text/javascript" src="{% static 'js/jquery-ui.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/jquery.dataTables.min.js' %}"></script>
+</head>
+<body>
+<div id="page-wrapper">
+    <div class="container-fluid">
+    {% block cuerpo %}
+
+    {% endblock cuerpo %}
+    </div>
+</div>
+</body>
+</html>

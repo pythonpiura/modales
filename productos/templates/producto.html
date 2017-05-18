@@ -1,0 +1,20 @@
+{% if object %}
+<form role="form" action="{% url 'productos:modificar_producto' object.pk %}" method="post">
+{% else %}
+<form role="form" action="{% url 'productos:crear_producto' %}" method="post">
+{% endif %}
+	{% csrf_token %}
+	<div class="panel panel-default">
+		<div class="panel-body">
+			{{ form.as_p }}
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-lg-12 text-right">
+			<input type="submit" class="btn btn-primary" name="submit" value="Guardar">
+			<button type="button" class="btn btn-default" onclick="return cerrar_modal()">
+				Cancelar
+			</button>
+		</div>
+	</div>
+</form>

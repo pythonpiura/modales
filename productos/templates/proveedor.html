@@ -1,0 +1,30 @@
+<div class="modal-dialog modal-lg">
+	<div class="modal-content">
+		{% if object %}
+		<form role="form" action="{% url 'productos:modificar_proveedor' object.pk %}" method="post">
+		{% else %}
+		<form role="form" action="{% url 'productos:crear_proveedor' %}" method="post">
+		{% endif %}
+			<div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">x</button>
+                <h3>Modificar Proveedor</h3>
+            </div>
+            <div class="modal-body">
+				{% csrf_token %}
+				<div class="panel panel-default">
+					<div class="panel-body">
+						{{ form.as_p }}
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<div class="col-lg-12 text-right">
+					<input type="submit" class="btn btn-primary" name="submit" value="Guardar">
+					<button type="button" class="btn btn-default" onclick="return cerrar_modal()">
+						Cancelar
+					</button>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>

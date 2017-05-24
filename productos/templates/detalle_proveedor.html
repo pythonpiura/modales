@@ -1,0 +1,37 @@
+<div class="modal-dialog modal-lg">
+	<div class="modal-content">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal">x</button>
+			<h3>Detalle Proveedor</h3>
+		</div>
+		<div class="modal-body">
+			<div class="row">
+				<div class="col-lg-4">
+					<label>RUC:</label>
+					<p>{{ object.ruc }}</p>
+					<label>RAZÓN SOCIAL:</label>
+					<p>{{ object.razon_social }}</p>
+					<label>DIRECCIÓN:</label>
+					<p>{{ object.direccion }}</p>
+					<label>TELÉFONO:</label>
+					<p>{{ object.telefono }}</p>
+					<label>CORREO:</label>
+					<p>{{ object.correo }}</p>
+					<label>ESTADO:</label>
+					{% if object.estado %}
+						<p>ACTIVO</p>
+					{% else %}
+						<p>INACTIVO</p>
+					{% endif %}
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<div class="col-lg-12 text-right">
+				<button type="button" class="btn btn-primary" onclick="return cerrar_modal()">
+					Aceptar
+				</button>
+			</div>
+		</div>
+	</div>
+</div>

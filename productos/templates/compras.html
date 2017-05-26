@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+{% block cuerpo %}
+<h3>Proveedores</h3>
+<div class="row">
+	<div class="col-lg-10">
+		<a onclick="return abrir_modal('{% url 'productos:crear_compra' %}')" class="btn btn-primary">
+			Crear
+		</a>
+	</div>
+</div>
+<hr/>
+<div class="row">
+	<div class="col-lg-12">
+		<table id="tabla" class="display" cellspacing="0" width="100%">
+			<thead>
+				<tr>
+					<th class="text-center">PROVEEDOR</th>
+					<th class="text-center">FECHA</th>
+					<th class="text-center">ACCIONES</th>
+				</tr>
+			</thead>
+			<tbody>
+			{% for compra in compras %}
+                <tr>
+                    <td>{{ compra.proveedor }}</td>
+                    <td>{{ compra.fecha }}</td>
+                    <td class="text-center">
+                        <a href="#" class="btn">
+                            <span class="glyphicon glyphicon-eye-open"></span>
+                        </a>
+                        <a onclick="return abrir_modal('{% url 'productos:modificar_compra' compra.pk %}')" class="btn">
+                            <span class="glyphicon glyphicon-edit"></span>
+                        </a>
+                    </td>
+				</tr>
+			{% endfor %}
+			</tbody>
+		</table>
+	</div>
+</div>
+<div id="popup" class="modal fade" role="dialog">
+
+</div>
+<script>
+function abrir_modal(url)
+{
+	$('#popup').load(url, function()
+	{
+		$(this).modal('show');
+	});
+	return false;
+}
+
+function cerrar_modal()
+{
+	$('#popup').modal('hide');
+	return false;
+}
+
+$(document).ready(function()
+{
+    var table = $('#tabla').dataTable( {
+        "language": {
+        	url: "/static/localizacion/es_ES.json"
+        }
+    } );
+});
+</script>
+{% endblock cuerpo %}

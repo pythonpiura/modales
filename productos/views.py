@@ -3,7 +3,7 @@ from __future__ import unicode_literals
 from django.views.generic.edit import UpdateView, CreateView
 from django.views.generic.list import ListView
 from productos.forms import ProductoForm, ProveedorForm, CompraForm, DetalleCompraFormSet
-from productos.models import Producto, Proveedor, Compra
+from productos.models import Producto, Proveedor, Compra, DetalleCompra
 from django.core.urlresolvers import reverse_lazy
 from django.views.generic.detail import DetailView
 from django.http.response import HttpResponseRedirect
@@ -50,6 +50,21 @@ class ModificarCompra(UpdateView):
     template_name = 'compra.html'
     form_class = CompraForm
     success_url = reverse_lazy('productos:listado_compras')
+
+    def get(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        form_class = self.get_form_class()
+        form = self.get_form(form_class)
+        detalles = DetalleCompra.objects.filter(compra=self.object).order_by('pk')
+        detalles_data = []
+        for detalle in detalles:
+            d = {'producto': detalle.producto,
+                 'cantidad': detalle.cantidad,
+                 'precio_compra': detalle.precio_compra}
+            detalles_data.append(d)
+        detalle_compra_form_set = DetalleCompraFormSet(initial=detalles_data)
+        return self.render_to_response(self.get_context_data(form=form,
+                                                             detalle_compra_form_set=detalle_compra_form_set))
 
 class DetalleProducto(DetailView):
     model = Producto

@@ -4,12 +4,16 @@
 	<div class="modal-content">
 		{% if object %}
 		<form role="form" action="{% url 'productos:modificar_compra' object.pk %}" method="post">
-		{% else %}
-		<form role="form" action="{% url 'productos:crear_compra' %}" method="post">
-		{% endif %}
 			<div class="modal-header">
                 <h3>Modificar Compra</h3>
             </div>
+		{% else %}
+		<form role="form" action="{% url 'productos:crear_compra' %}" method="post">
+			<div class="modal-header">
+                <h3>Crear Compra</h3>
+            </div>
+		{% endif %}
+
             <div class="modal-body">
 				{% csrf_token %}
 				<div class="panel panel-default">

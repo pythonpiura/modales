@@ -3,4 +3,17 @@ from __future__ import unicode_literals
 
 from django.contrib import admin
 
-# Register your models here.
+from productos.models import Compra, DetalleCompra
+
+
+class DetalleCompraAdmin(admin.TabularInline):
+    model = DetalleCompra
+
+class CompraAdmin(admin.ModelAdmin):
+    inlines = [DetalleCompraAdmin]
+
+admin.site.register(Compra, CompraAdmin)
+
+
+
+

@@ -1,9 +1,9 @@
 {% extends "base.html" %}
 {% block cuerpo %}
-<h3>Proveedores</h3>
+<h3>Compras</h3>
 <div class="row">
 	<div class="col-lg-10">
-		<a onclick="return abrir_modal('{% url 'productos:crear_compra' %}')" class="btn btn-primary">
+		<a href="{% url 'productos:crear_compra' %}" class="btn btn-primary">
 			Crear
 		</a>
 	</div>
@@ -38,25 +38,7 @@
 		</table>
 	</div>
 </div>
-<div id="popup" class="modal fade" role="dialog">
-
-</div>
 <script>
-function abrir_modal(url)
-{
-	$('#popup').load(url, function()
-	{
-		$(this).modal('show');
-	});
-	return false;
-}
-
-function cerrar_modal()
-{
-	$('#popup').modal('hide');
-	return false;
-}
-
 $(document).ready(function()
 {
     var table = $('#tabla').dataTable( {

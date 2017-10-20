@@ -1,83 +1,71 @@
 {% extends "base.html" %}
 {% block cuerpo %}
-<div class="modal-dialog modal-lg">
-	<div class="modal-content">
-		{% if object %}
-		<form role="form" action="{% url 'productos:modificar_compra' object.pk %}" method="post">
-			<div class="modal-header">
-                <h3>Modificar Compra</h3>
-            </div>
-		{% else %}
-		<form role="form" action="{% url 'productos:crear_compra' %}" method="post">
-			<div class="modal-header">
-                <h3>Crear Compra</h3>
-            </div>
-		{% endif %}
 
-            <div class="modal-body">
-				{% csrf_token %}
-				<div class="panel panel-default">
-					<div class="panel-body">
-						{{ form.as_p }}
-						{{ detalle_compra_form_set.management_form }}
-						{% for detalle_compra_form in detalle_compra_form_set %}
-							<div class="row">
-								<div class="col-lg-4">
-									<label>Producto</label>
-									{% if detalle_compra_form.producto.errors %}
-										{% for error in detalle_compra_form.producto.errors %}
-										<div class="alert alert-danger alert-dismissible" role="alert">
-											<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-												<span aria-hidden="true">&times;</span>
-											</button>
-											<strong>Error: </strong> {{ error|escape }}
-										</div>
-										{% endfor %}
-									{% endif %}
-									{{ detalle_compra_form.producto }}
-								</div>
-								<div class="col-lg-4">
-									<label>Cantidad</label>
-									{% if detalle_compra_form.cantidad.errors %}
-										{% for error in detalle_compra_form.cantidad.errors %}
-										<div class="alert alert-danger alert-dismissible" role="alert">
-											<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-												<span aria-hidden="true">&times;</span>
-											</button>
-											<strong>Error: </strong> {{ error|escape }}
-										</div>
-										{% endfor %}
-									{% endif %}
-									{{ detalle_compra_form.cantidad }}
-								</div>
-								<div class="col-lg-4">
-									<label>Precio</label>
-									{% if detalle_compra_form.precio_compra.errors %}
-										{% for error in detalle_compra_form.precio_compra.errors %}
-										<div class="alert alert-danger alert-dismissible" role="alert">
-											<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-												<span aria-hidden="true">&times;</span>
-											</button>
-											<strong>Error: </strong> {{ error|escape }}
-										</div>
-										{% endfor %}
-									{% endif %}
-									{{ detalle_compra_form.precio_compra }}
-								</div>
+{% if object %}
+<form role="form" action="{% url 'productos:modificar_compra' object.pk %}" method="post">
+	<h3>Modificar Compra</h3>
+{% else %}
+<form role="form" action="{% url 'productos:crear_compra' %}" method="post">
+	<h3>Crear Compra</h3>
+{% endif %}
+	{% csrf_token %}
+	<div class="panel panel-default">
+		<div class="panel-body">
+			{{ form.as_p }}
+			{{ detalle_compra_form_set.management_form }}
+			{% for detalle_compra_form in detalle_compra_form_set %}
+				<div class="row">
+					<div class="col-lg-4">
+						<label>Producto</label>
+						{% if detalle_compra_form.producto.errors %}
+							{% for error in detalle_compra_form.producto.errors %}
+							<div class="alert alert-danger alert-dismissible" role="alert">
+								<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+								<strong>Error: </strong> {{ error|escape }}
 							</div>
-						{% endfor %}
+							{% endfor %}
+						{% endif %}
+						{{ detalle_compra_form.producto }}
+					</div>
+					<div class="col-lg-4">
+						<label>Cantidad</label>
+						{% if detalle_compra_form.cantidad.errors %}
+							{% for error in detalle_compra_form.cantidad.errors %}
+							<div class="alert alert-danger alert-dismissible" role="alert">
+								<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+								<strong>Error: </strong> {{ error|escape }}
+							</div>
+							{% endfor %}
+						{% endif %}
+						{{ detalle_compra_form.cantidad }}
+					</div>
+					<div class="col-lg-4">
+						<label>Precio</label>
+						{% if detalle_compra_form.precio_compra.errors %}
+							{% for error in detalle_compra_form.precio_compra.errors %}
+							<div class="alert alert-danger alert-dismissible" role="alert">
+								<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+								<strong>Error: </strong> {{ error|escape }}
+							</div>
+							{% endfor %}
+						{% endif %}
+						{{ detalle_compra_form.precio_compra }}
 					</div>
 				</div>
-			</div>
-			<div class="modal-footer">
-				<div class="col-lg-12 text-right">
-					<input type="submit" class="btn btn-primary" name="submit" value="Guardar">
-					<button type="button" class="btn btn-default" onclick="return cerrar_modal()">
-						Cancelar
-					</button>
-				</div>
-			</div>
-		</form>
+			{% endfor %}
+		</div>
 	</div>
-</div>
+	<div class="col-lg-12 text-right">
+		<input type="submit" class="btn btn-primary" name="submit" value="Guardar">
+		<a type="button" class="btn btn-default" href="{% url 'productos:listado_compras' %}">
+			Cancelar
+		</a>
+	</div>
+</form>
 {% endblock cuerpo %}

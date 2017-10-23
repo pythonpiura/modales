@@ -28,7 +28,7 @@
                         <a href="#" class="btn">
                             <span class="glyphicon glyphicon-eye-open"></span>
                         </a>
-                        <a onclick="return abrir_modal('{% url 'productos:modificar_compra' compra.pk %}')" class="btn">
+                        <a href="{% url 'productos:modificar_compra' compra.pk %}" class="btn">
                             <span class="glyphicon glyphicon-edit"></span>
                         </a>
                     </td>

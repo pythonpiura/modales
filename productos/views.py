@@ -66,6 +66,29 @@ class ModificarCompra(UpdateView):
         return self.render_to_response(self.get_context_data(form=form,
                                                              detalle_compra_form_set=detalle_compra_form_set))
 
+
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        form_class = self.get_form_class()
+        form = self.get_form(form_class)
+        detalle_compra_form_set = DetalleCompraFormSet(request.POST)
+        if form.is_valid() and detalle_compra_form_set.is_valid():
+            return self.form_valid(form, detalle_compra_form_set)
+        else:
+            return self.form_invalid(form, detalle_compra_form_set)
+
+
+    def form_valid(self, form, detalle_compra_form_set):
+        self.object = form.save()
+        detalle_compra_form_set.instance = self.object
+        DetalleCompra.objects.filter(compra = self.object).delete()
+        detalle_compra_form_set.save()
+        return HttpResponseRedirect(self.success_url)
+
+    def form_invalid(self, form, detalle_compra_form_set):
+        return self.render_to_response(self.get_context_data(form=form,
+                                                             detalle_compra_form_set = detalle_compra_form_set))
+
 class DetalleProducto(DetailView):
     model = Producto
     template_name = 'detalle_producto.html'
